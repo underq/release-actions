@@ -21,12 +21,12 @@ jobs:
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: master
-          pr_title: "Release ${{ github.ref }}"
+          pr_title: "Release ${{ steps.get_version.outputs.version-without-v }}"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Backport Pull Request
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: dev
-          pr_title: "Release ${{ github.ref }} backport"
+          pr_title: "Release ${{ steps.get_version.outputs.version-without-v }} backport"
           github_token: ${{ secrets.GITHUB_TOKEN }}
