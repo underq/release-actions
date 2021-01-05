@@ -13,9 +13,16 @@ jobs:
       - id: get_version
         uses:  underq/get-version-action@master
 
-      - run: echo ${{ steps.get_version.outputs.version }}
-
       - run: echo ${{ steps.get_version.outputs.version-without-v }}
+
+      # See: https://www.mojohaus.org/versions-maven-plugin/examples/set.html#
+      - run: mvn versions:set versions:commit -DnewVersion="${{ steps.get_version.outputs.version-without-v }}"
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v6
+        with:
+          message: "Release ${{ steps.get_version.outputs.version-without-v }}"
+          add: 'pom.xml'
 
       - name: Create Release Pull Request
         uses: repo-sync/pull-request@v2
