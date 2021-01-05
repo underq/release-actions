@@ -10,9 +10,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create Pull Request
+      - name: Create Release Pull Request
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: master
-          pr_title: "Release branch ${{ github.ref }}"
+          pr_title: "Release ${{ github.ref }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Backport Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: dev
+          pr_title: "Release ${{ github.ref }} backport"
           github_token: ${{ secrets.GITHUB_TOKEN }}
