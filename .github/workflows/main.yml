@@ -13,6 +13,6 @@ jobs:
       - name: Create Pull Request
         uses: repo-sync/pull-request@v2
         with:
-          title: Relase
           destination_branch: master
+          pr_title: "Release branch ${{ github.ref }}"
           github_token: ${{ secrets.GITHUB_TOKEN }}
