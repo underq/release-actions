@@ -10,10 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # For the moment we use my personal version of `get-version-action` until this PR https://github.com/battila7/get-version-action/pull/4 was merged
       - id: get_version
         uses:  underq/get-version-action@master
-
-      - run: echo ${{ steps.get_version.outputs.version-without-v }}
 
       # See: https://www.mojohaus.org/versions-maven-plugin/examples/set.html#
       - run: mvn versions:set versions:commit -DnewVersion="${{ steps.get_version.outputs.version-without-v }}"
